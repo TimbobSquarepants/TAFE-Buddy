@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.Intent;
 
+import programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.CampusListActivity;
+
+
 public class MainPage extends AppCompatActivity {
 
     //setting up the Imagebuttons for navigation.
@@ -94,7 +97,7 @@ public class MainPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Map Clicked", Toast.LENGTH_SHORT).show();
-                Intent mapIntent = new Intent(MainPage.this, MapsActivity.class);
+               Intent mapIntent = new Intent(MainPage.this, CampusListActivity.class);
                 startActivity(mapIntent);
             }
         });

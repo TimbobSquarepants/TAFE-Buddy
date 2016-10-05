@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TafeBuddy</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_campus_list">Campuses</string>
+    <string name="title_campus_detail">Campus Detail</string>
+
+
 </resources>
