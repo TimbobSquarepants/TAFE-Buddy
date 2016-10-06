@@ -8,6 +8,7 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -52,6 +53,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.CampusListActivity" />
+        </activity>
+        <activity
+            android:name=".WebviewActivity"
+            android:label="@string/title_activity_webview"
+            android:parentActivityName=".MainPage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainPage" />
         </activity>
     </application>
 
