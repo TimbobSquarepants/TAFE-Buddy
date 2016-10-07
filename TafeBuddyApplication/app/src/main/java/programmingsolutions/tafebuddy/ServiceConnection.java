@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package CustomTabs;
+package programmingsolutions.tafebuddy;
 
 import android.content.ComponentName;
 import android.support.customtabs.CustomTabsClient;

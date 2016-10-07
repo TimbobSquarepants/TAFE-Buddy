@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.CampusListActivity"
+    tools:context=".CampusListActivity"
     tools:listitem="@layout/campus_list_content" />

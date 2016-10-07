@@ -1,22 +1,13 @@
-package programmingsolutions.tafebuddy.CampusMasterFlow.CampusData;
+package programmingsolutions.tafebuddy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.MapFragment;
-
-import programmingsolutions.tafebuddy.R;
+import CampusMapClasses.CampusDetailFragment;
 
 /**
  * An activity representing a single Campus detail screen. This
@@ -40,12 +31,12 @@ public class CampusDetailActivity extends AppCompatActivity  {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // savedInstanceState is non-null when there is fragment state
+        // s avedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
         // In this case, the fragment will automatically be re-added
         // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
+        // For more information, see the FragmentsAPI guide at:
         //
         // http://developer.android.com/guide/components/fragments.html
         //

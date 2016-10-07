@@ -1,18 +1,22 @@
-package programmingsolutions.tafebuddy.CampusMasterFlow.CampusData;
+package CampusMapClasses;
 
 
 import android.Manifest;
 import android.app.Activity;
 
 
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,8 +26,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import programmingsolutions.tafebuddy.CampusDetailActivity;
+import programmingsolutions.tafebuddy.CampusListActivity;
 import programmingsolutions.tafebuddy.R;
-import programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.Campus.CampusContent;
+import CampusMapClasses.Campus.CampusContent;
+
 
 /**
  * A fragment representing a single Campus detail screen.
@@ -46,7 +53,6 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     //google map object
     private GoogleMap mMap;
 
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -65,7 +71,6 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
             mItem = CampusContent.CAMPUS_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
 
-
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
@@ -79,7 +84,7 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.campus_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+
         return rootView;
 
     }
@@ -95,17 +100,13 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     //this will setup the map for use
 
 
-
     //this is where the map is created and where we are specifying what map to load.
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
         mMap.setIndoorEnabled(true);
-
-        boolean showLevelPicker = true;
-        showLevelPicker = !showLevelPicker;
-        mMap.getUiSettings().setIndoorLevelPickerEnabled(showLevelPicker);
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
 
         //Adding Markers and moving the camera to the location
         //we can also specify the zoom amount.

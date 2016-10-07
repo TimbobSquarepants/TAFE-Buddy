@@ -1,4 +1,4 @@
-package programmingsolutions.tafebuddy.CampusMasterFlow.CampusData;
+package programmingsolutions.tafebuddy;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,9 +15,10 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import programmingsolutions.tafebuddy.R;
+import CampusMapClasses.CampusDetailFragment;
 
-import programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.Campus.CampusContent;
+
+import CampusMapClasses.Campus.CampusContent;
 
 import java.util.List;
 

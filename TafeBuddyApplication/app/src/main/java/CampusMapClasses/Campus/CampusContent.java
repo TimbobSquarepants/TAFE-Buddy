@@ -1,4 +1,4 @@
-package programmingsolutions.tafebuddy.CampusMasterFlow.CampusData.Campus;
+package CampusMapClasses.Campus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
