@@ -6,17 +6,18 @@ import android.app.Activity;
 
 
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
+
+
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,6 +58,8 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
+    static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
     public CampusDetailFragment() {
     }
 
@@ -105,8 +108,26 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+
         mMap.setIndoorEnabled(true);
         mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+
+        //code for enabling location tracking.
+        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            //requesting maps access to Fine Location in the android manifest file
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+            return;
+
+
+        }
+
+
+        mMap.setMyLocationEnabled(true);
+
+
 
         //Adding Markers and moving the camera to the location
         //we can also specify the zoom amount.
@@ -191,4 +212,6 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
         }
 
     }
-}
+
+    }
+
