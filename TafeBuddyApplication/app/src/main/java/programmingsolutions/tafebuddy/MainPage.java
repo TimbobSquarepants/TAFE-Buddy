@@ -3,10 +3,16 @@ package programmingsolutions.tafebuddy;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -16,7 +22,7 @@ import CustomTabs.WebviewFallback;
 
 
 
-public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback {
+public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
 
 
     private CustomTabsClient mClient;
@@ -45,7 +51,26 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.navigation_layout);
+
+        //setting up the toolbar layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toobar);
+        setSupportActionBar(toolbar);
+
+
+
+
+        //creating a navigation drawer.
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
 
         customTabActivityHelper= new CustomTabActivityHelper();
         //lets the helper know that we want this class to be used.
@@ -208,5 +233,10 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     @Override
     public void onCustomTabsDisconnected() {
         mMayLaunchUrlButton.setEnabled(false);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return false;
     }
 }
