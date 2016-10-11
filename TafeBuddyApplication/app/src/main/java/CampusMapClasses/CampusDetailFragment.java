@@ -96,6 +96,7 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //sending a fragment to the details view.
         MapFragment fragment = (MapFragment) getChildFragmentManager().findFragmentById(R.id.mapFragment);
         fragment.getMapAsync(this);
     }

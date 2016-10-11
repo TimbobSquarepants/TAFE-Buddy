@@ -103,7 +103,7 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
     public void onServiceConnected(CustomTabsClient client) {
         mClient = client;
         mClient.warmup(0L);
-        if(mConnectionCallback!= null) mConnectionCallback.onCustomTabsConnected();
+
     }
 
     @Override
@@ -111,7 +111,7 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
 
         mClient = null;
         mCustomTabsSession = null;
-        if(mConnectionCallback!= null) mConnectionCallback.onCustomTabsDisconnected();
+
     }
 
 
@@ -128,12 +128,12 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
         /**
          * Called when the service is connected.
          */
-        void onCustomTabsConnected();
+
 
         /**
          * Called when the service is disconnected.
          */
-        void onCustomTabsDisconnected();
+
     }
 
 
