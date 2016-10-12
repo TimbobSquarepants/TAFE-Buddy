@@ -4,8 +4,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsCallback;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.customtabs.CustomTabsSession;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -32,10 +35,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     private ImageButton btnCalendar;
     private ImageButton btnVideos;
     private ImageButton btnFAQPage;
-
-
+    //setting up the custom tab helper class
     private CustomTabActivityHelper customTabActivityHelper;
-
     //Urls
     final String COURSE_SCHEDULE = "https://my.tafesa.edu.au/PROD/bwskfshd.P_CrseSchd";
     final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/index/about";
@@ -48,6 +49,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
     final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
 
         //creating a navigation drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
+        //creating the action bar
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -70,39 +73,21 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         customTabActivityHelper= new CustomTabActivityHelper();
         //lets the helper know that we want this class to be used.
         customTabActivityHelper.setConnectionCallback(this);
+        customTabActivityHelper.getSession();
 
-        /*getting the urls ready in a bundle so they can passed to maylaunch method
-        Bundle campusBundle = new Bundle();
-        campusBundle.putString("CourseScehdule",COURSE_SCHEDULE);
-        campusBundle.putString("Counselling",COUNSELLING_BOOKING);
-        campusBundle.putString("FAQ",FAQ);
-        campusBundle.putString("Calender",CALENDER);
-        campusBundle.putString("Video",VIDEO);*/
 
-        Uri courseUrl = Uri.parse(COURSE_SCHEDULE);
-        Uri CounsellingUrl = Uri.parse(COUNSELLING_BOOKING);
-        Uri faqUrl  = Uri.parse(COUNSELLING_BOOKING);
-        Uri CalenderUrl  = Uri.parse(COUNSELLING_BOOKING);
-        Uri VideoUrl  = Uri.parse(COUNSELLING_BOOKING);
-        customTabActivityHelper.mayLaunchUrl(CounsellingUrl,null,null);
-        customTabActivityHelper.mayLaunchUrl(faqUrl,null,null);
-        customTabActivityHelper.mayLaunchUrl(CalenderUrl,null,null);
-        customTabActivityHelper.mayLaunchUrl(VideoUrl,null,null);
-        customTabActivityHelper.mayLaunchUrl(courseUrl,null,null);
-
-       // customTabActivityHelper.mayLaunchUrl(null,campusBundle,null);
         //assigning the buttons
-
         btnAgenda= (ImageButton) findViewById(R.id.btnAgenda);
         btnMap = (ImageButton) findViewById(R.id.btnMap);
         btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
         btnCalendar = (ImageButton) findViewById(R.id.btnCalendar);
         btnVideos = (ImageButton) findViewById(R.id.btnEmail);
         btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
-         final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-        final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
 
-        //setting the toolbar color
+        //creating a custom tab and making customizing the animations and toolbar.
+        final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
+        final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
+         //setting the toolbar color
         intent.setToolbarColor(Color.RED);
         intentBlue.setToolbarColor(Color.BLUE);
 
@@ -113,6 +98,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         intentBlue.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
         intentBlue.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);
+
         //setting the home button in the custom tab
         intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
         intentBlue.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
@@ -129,23 +115,18 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 //debugging
                 Toast.makeText(MainPage.this, "Agenda Clicked", Toast.LENGTH_SHORT).show();
-
                 //parseing the string into a uri
                 Uri uri  = Uri.parse(COURSE_SCHEDULE);
-
                 //sending the information to the helper to process
                  CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
             }
         });
-
         btnBookCounselling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "BookCounselling Clicked", Toast.LENGTH_SHORT).show();
-                //parseing the string into a uri
                 Uri uri  = Uri.parse(COUNSELLING_BOOKING);
-                //sending the information to the helper to process
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
             }
@@ -155,9 +136,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "FAQPage Clicked", Toast.LENGTH_SHORT).show();
-                //parseing the string into a uri
                 Uri uri  = Uri.parse(FAQ);
-                //sending the information to the helper to process
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());;
             }
         });
@@ -166,9 +145,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Calendar Clicked", Toast.LENGTH_SHORT).show();
-                //parseing the string into a uri
                 Uri uri  = Uri.parse(CALENDER);
-                //sending the information to the helper to process
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
             }
         });
@@ -177,10 +154,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Email Clicked", Toast.LENGTH_SHORT).show();
-                //parseing the string into a uri
                 Uri uri=Uri.parse(EMAIL);
-                //sending the information to the helper to process
-
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());
 
             }
@@ -199,7 +173,6 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     }
 
     //housekeeping freeing up space or binding to the service.
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -210,8 +183,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     protected void onStart() {
         super.onStart();
         customTabActivityHelper.bindCustomTabsService(this);
-    }
 
+    }
     @Override
     protected void onStop() {
         super.onStop();
