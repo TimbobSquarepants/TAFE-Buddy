@@ -31,7 +31,7 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
     private ConnectionCallback mConnectionCallback;
 
     final String COURSE_SCHEDULE = "https://my.tafesa.edu.au/PROD/bwskfshd.P_CrseSchd";
-    final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/index/about";
+    final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/sheduler/manage";
     final String FAQ = "https://www.tafensw.edu.au/about-tafensw/enterprise-bargaining/faq";
     final String CALENDER = "https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&ll-cc=1033&modurl=1&path=/calendar/view/Month";
     final String VIDEO = "https://tafesaedu.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=h";
@@ -39,7 +39,8 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
     final String ONEDRIVE= "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
     final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
     final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
-    final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
+    final String EMAIL="https://outlook.office.com";
+
 
 
     //opens the URL on a Custom Tab if possible ortherwise it will fall back to opening it on a WebView.
@@ -132,16 +133,27 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
 
 
 
-         /*getting the urls ready in a bundle so they can passed to maylaunch method
+       //getting the urls ready in a bundle so they can passed to maylaunch method
         Bundle campusBundle = new Bundle();
         campusBundle.putString("CourseScehdule",COURSE_SCHEDULE);
         campusBundle.putString("Counselling",COUNSELLING_BOOKING);
         campusBundle.putString("FAQ",FAQ);
         campusBundle.putString("Calender",CALENDER);
-        campusBundle.putString("Video",VIDEO);*/
-        // customTabActivityHelper.mayLaunchUrl(null,campusBundle,null);
+        campusBundle.putString("Video",VIDEO);
+        campusBundle.putString("OneDrive",ONEDRIVE);
+        campusBundle.putString("OneNote",ONENOTE);
+        campusBundle.putString("Account",ACCOUNT);
+        campusBundle.putString("UserDetails",USERDETAILS);
+        campusBundle.putString("Email",EMAIL);
 
-        Uri courseUrl = Uri.parse(COURSE_SCHEDULE);
+
+
+
+
+
+        customTabsSession.mayLaunchUrl(null,campusBundle,null);
+
+        /*Uri courseUrl = Uri.parse(COURSE_SCHEDULE);
         Uri CounsellingUrl = Uri.parse(COUNSELLING_BOOKING);
         Uri faqUrl  = Uri.parse(COUNSELLING_BOOKING);
         Uri CalenderUrl  = Uri.parse(COUNSELLING_BOOKING);
@@ -150,7 +162,7 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
         customTabsSession.mayLaunchUrl(faqUrl,null,null);
         customTabsSession.mayLaunchUrl(CalenderUrl,null,null);
         customTabsSession.mayLaunchUrl(VideoUrl,null,null);
-        customTabsSession.mayLaunchUrl(courseUrl,null,null);
+        customTabsSession.mayLaunchUrl(courseUrl,null,null);*/
 
     }
 

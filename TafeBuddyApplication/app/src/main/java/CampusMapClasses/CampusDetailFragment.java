@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,8 +25,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.IndoorBuilding;
+import com.google.android.gms.maps.model.IndoorLevel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
 
 import programmingsolutions.tafebuddy.CampusDetailActivity;
 import programmingsolutions.tafebuddy.CampusListActivity;
@@ -39,7 +44,7 @@ import CampusMapClasses.Campus.CampusContent;
  * in two-pane mode (on tablets) or a {@link CampusDetailActivity}
  * on handsets.
  */
-public class CampusDetailFragment extends android.app.Fragment implements OnMapReadyCallback {
+public class CampusDetailFragment extends android.app.Fragment implements OnMapReadyCallback, GoogleMap.OnIndoorStateChangeListener {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -51,8 +56,11 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
      */
     private CampusContent.Campus mItem;
 
+
+
     //google map object
     private GoogleMap mMap;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -79,6 +87,7 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
             if (appBarLayout != null) {
                 appBarLayout.setTitle(mItem.campusName);
             }
+
         }
     }
 
@@ -89,6 +98,7 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
 
 
         return rootView;
+
 
     }
 
@@ -101,6 +111,7 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
         fragment.getMapAsync(this);
     }
 
+
     //this will setup the map for use
 
 
@@ -109,10 +120,6 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-
-        mMap.setIndoorEnabled(true);
-        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
-
         //code for enabling location tracking.
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -124,95 +131,127 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
 
 
         }
-
-
         mMap.setMyLocationEnabled(true);
-
+        mMap.setTrafficEnabled(true);
 
 
         //Adding Markers and moving the camera to the location
         //we can also specify the zoom amount.
 
-        if(mItem.campusName == "Adelaide City Campus"){
+        if (mItem.campusName == "Adelaide City Campus") {
 
             LatLng adelaideCBDCampus = new LatLng(-34.924225, 138.595189);
             mMap.addMarker(new MarkerOptions().position(adelaideCBDCampus).title("TAFESA Adelaide City Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.924225,138.595189),17 ));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.924225, 138.595189), 17));
         }
-        if(mItem.campusName == "Tonsley Campus"){
+        if (mItem.campusName == "Tonsley Campus") {
 
-            LatLng tonsleyCampus = new LatLng(-35.000809, 138.572425);
+            LatLng tonsleyCampus = new LatLng(-35.009577, 138.571484);
             mMap.addMarker(new MarkerOptions().position(tonsleyCampus).title("TAFESA Tonsley Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.000809, 138.572425),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.009577, 138.571484), 17));
         }
-        if(mItem.campusName == "Urrbrae Campus"){
+        if (mItem.campusName == "Urrbrae Campus") {
 
             LatLng urrbraeCampus = new LatLng(-34.966858, 138.625295);
             mMap.addMarker(new MarkerOptions().position(urrbraeCampus).title("TAFESA Urrbrae Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.966858, 138.625295),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.966858, 138.625295), 17));
         }
-        if(mItem.campusName == "Morphetville Campus"){
+        if (mItem.campusName == "Morphetville Campus") {
 
             LatLng morphetvilleCampus = new LatLng(-34.973050, 138.546031);
             mMap.addMarker(new MarkerOptions().position(morphetvilleCampus).title("TAFESA Morphetville Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.973050, 138.546031),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.973050, 138.546031), 17));
         }
-        if(mItem.campusName == "Regency Campus"){
+        if (mItem.campusName == "Regency Campus") {
 
             LatLng regencyCampus = new LatLng(-34.873101, 138.567916);
             mMap.addMarker(new MarkerOptions().position(regencyCampus).title("TAFESA Regency Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.873101, 138.567916),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.873101, 138.567916), 17));
         }
-        if(mItem.campusName == "Port Adelaide Campus"){
+        if (mItem.campusName == "Port Adelaide Campus") {
 
-            LatLng portAdelaideCampus = new LatLng(-34.843949,138.500524);
+            LatLng portAdelaideCampus = new LatLng(-34.843949, 138.500524);
             mMap.addMarker(new MarkerOptions().position(portAdelaideCampus).title("TAFESA Port Adelaide Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.843949,138.500524),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.843949, 138.500524), 17));
         }
-        if(mItem.campusName == "Tea Tree Gully Campus"){
+        if (mItem.campusName == "Tea Tree Gully Campus") {
 
-            LatLng teaTreeGully = new LatLng(-34.832280,138.696305);
+            LatLng teaTreeGully = new LatLng(-34.832280, 138.696305);
             mMap.addMarker(new MarkerOptions().position(teaTreeGully).title("TAFESA Tea Tree Gully Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.832280,138.696305),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.832280, 138.696305), 17));
         }
-        if(mItem.campusName == "Giles Plains Campus"){
+        if (mItem.campusName == "Giles Plains Campus") {
 
             LatLng gilesPlainsCampus = new LatLng(-34.851530, 138.652238);
             mMap.addMarker(new MarkerOptions().position(gilesPlainsCampus).title("TAFESA Giles Plains Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.851530, 138.652238),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.851530, 138.652238), 17));
         }
-        if(mItem.campusName == "Parafield Campus"){
+        if (mItem.campusName == "Parafield Campus") {
 
             LatLng parafieldCampus = new LatLng(-34.788660, 138.633438);
             mMap.addMarker(new MarkerOptions().position(parafieldCampus).title("TAFESA Parafield Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.788660, 138.633438),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.788660, 138.633438), 17));
         }
-        if(mItem.campusName == "Elizabeth Campus"){
+        if (mItem.campusName == "Elizabeth Campus") {
 
             LatLng elizabethCampus = new LatLng(-34.712957, 138.671950);
             mMap.addMarker(new MarkerOptions().position(elizabethCampus).title("TAFESA Elizabeth Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.712957, 138.671950),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.712957, 138.671950), 17));
         }
-        if(mItem.campusName == "Gawler Campus"){
+        if (mItem.campusName == "Gawler Campus") {
 
             LatLng gawlerCampus = new LatLng(-34.597199, 138.750434);
             mMap.addMarker(new MarkerOptions().position(gawlerCampus).title("TAFESA Gawler Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.597199, 138.750434),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-34.597199, 138.750434), 17));
         }
-        if(mItem.campusName == "Noarlunga Campus"){
+        if (mItem.campusName == "Noarlunga Campus") {
 
             LatLng noarlungaCampus = new LatLng(-35.140019, 138.497695);
             mMap.addMarker(new MarkerOptions().position(noarlungaCampus).title("TAFESA Noarlunga Campus Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.140019, 138.497695),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.140019, 138.497695), 17));
         }
-        if(mItem.campusName == "Mount Barker Campus"){
+        if (mItem.campusName == "Mount Barker Campus") {
 
             LatLng mountBarkerCampus = new LatLng(-35.069198, 138.855127);
             mMap.addMarker(new MarkerOptions().position(mountBarkerCampus).title("TAFESA Mount Barker Campus"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.069198, 138.855127),17));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.069198, 138.855127), 17));
         }
 
-    }
+
 
     }
+
+    //this handles the ability to view indoor mapswe can store building information and load our own
+    //buildings once we get tafe campuses mapped out.
+
+    @Override
+    public void onIndoorBuildingFocused() {
+        mMap.setIndoorEnabled(true);
+        IndoorBuilding building = mMap.getFocusedBuilding();
+        if (building == null) {
+
+        }
+        else {
+            building.getLevels().get(building.getActiveLevelIndex());
+            //this is the default pick view that loads when a building comes into focus.
+            mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+        }
+
+
+
+    }
+
+    @Override
+    public void onIndoorLevelActivated(IndoorBuilding indoorBuilding) {
+
+    }
+
+}
+
+
+
+
+
+
+
 

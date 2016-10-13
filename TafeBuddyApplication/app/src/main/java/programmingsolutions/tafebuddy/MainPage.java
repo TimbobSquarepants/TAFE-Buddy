@@ -4,10 +4,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsCallback;
-import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.customtabs.CustomTabsSession;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +12,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -87,9 +83,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //creating a custom tab and making customizing the animations and toolbar.
         final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
         final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-         //setting the toolbar color
-        intent.setToolbarColor(Color.RED);
-        intentBlue.setToolbarColor(Color.BLUE);
+         //setting the toolbar color also allowing the tab to show the title of the wabpage.
+        intent.setToolbarColor(Color.RED).setShowTitle(true);
+        intentBlue.setToolbarColor(Color.BLUE).setShowTitle(true);
 
         //this will change the custom animations for custom tab using animatinos resource files.
         intent.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);

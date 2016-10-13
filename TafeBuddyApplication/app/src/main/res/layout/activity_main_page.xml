@@ -18,22 +18,19 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainpage_toobar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="69dp"
             android:background="@android:color/transparent"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="TAFE Buddy System"
+            app:titleMargin="10dp"
+            android:textAlignment="viewEnd"
+            app:titleTextColor="@color/colorAccent"
+            app:subtitle="Prototype Test" />
 
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
 
-        android:layout_alignParentStart="false"
-       />
 
 
     <ImageButton
