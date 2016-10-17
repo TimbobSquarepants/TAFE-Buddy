@@ -44,6 +44,10 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
     final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
     final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
     final String EMAIL="https://outlook.office.com";
+    final String ACCOUNT_MAIN_PAGE = "https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_StuMainMnu___UID0&pageReferrerId=&pageDepth=2&options=false";
+    final String FILES= "http://netstorage.tafesa.edu.au/SitePages/Home.aspx";
+    final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
+
 
 
 
@@ -149,6 +153,9 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
         campusBundle.putString("Account",ACCOUNT);
         campusBundle.putString("UserDetails",USERDETAILS);
         campusBundle.putString("Email",EMAIL);
+        campusBundle.putString("Account Mainpage", ACCOUNT_MAIN_PAGE);
+        campusBundle.putString("Files", FILES);
+        campusBundle.putString("CourseInformation", COURSE_INFORMATION);
 
         customTabsSession.mayLaunchUrl(null,campusBundle,null);
 

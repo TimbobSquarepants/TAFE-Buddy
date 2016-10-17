@@ -61,11 +61,11 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignTop="@+id/btnEmail"
-        android:layout_alignStart="@+id/btnCalendar" />
+        android:layout_alignStart="@+id/btnAccount" />
 
     <ImageButton
 
-        android:id="@+id/btnCalendar"
+        android:id="@+id/btnAccount"
         android:background="@drawable/ic_action_action_account_balance"
         android:layout_width="60dp"
         android:layout_height="60dp"
@@ -90,16 +90,16 @@
         android:layout_marginEnd="58dp"
         android:layout_row="1"
         android:layout_column="1"
-        android:layout_alignTop="@+id/btnCalendar"
+        android:layout_alignTop="@+id/btnAccount"
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="Calender"
+        android:text="My Account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"
-        android:layout_below="@+id/btnCalendar"
-        android:layout_alignStart="@+id/btnCalendar"
+        android:layout_below="@+id/btnAccount"
+        android:layout_alignStart="@+id/btnAccount"
         android:id="@+id/textView4" />
 
     <TextView

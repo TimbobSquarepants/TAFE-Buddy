@@ -43,7 +43,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
     final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
     final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
-
+    final String ACCOUNT_MAIN_PAGE = "https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_StuMainMnu___UID0&pageReferrerId=&pageDepth=2&options=false";
+    final String FILES= "http://netstorage.tafesa.edu.au/SitePages/Home.aspx";
+    final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
 
 
     @Override
@@ -75,7 +77,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         btnAgenda= (ImageButton) findViewById(R.id.btnAgenda);
         btnMap = (ImageButton) findViewById(R.id.btnMap);
         btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
-        btnCalendar = (ImageButton) findViewById(R.id.btnCalendar);
+        btnCalendar = (ImageButton) findViewById(R.id.btnAccount);
         btnVideos = (ImageButton) findViewById(R.id.btnEmail);
         btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
 
@@ -141,8 +143,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         btnCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainPage.this, "Calendar Clicked", Toast.LENGTH_SHORT).show();
-                Uri uri  = Uri.parse(CALENDER);
+                Toast.makeText(MainPage.this, "Account Clicked", Toast.LENGTH_SHORT).show();
+                Uri uri  = Uri.parse(ACCOUNT);
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
             }
         });
@@ -221,24 +223,29 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         intent.addDefaultShareMenuItem();
         //prepareActionButton(intent);
 
+        if(id == R.id.nav_courses){
+            Uri uri = Uri.parse(COURSE_INFORMATION);
+            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
-        if(id== R.id.nav_videos){
+        }
+
+        else if(id== R.id.nav_videos){
             Uri uri  = Uri.parse(VIDEO);
             CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
         }
-        if(id==R.id.nav_onenote){
+        else if(id==R.id.nav_onenote){
             Uri uri = Uri.parse(ONENOTE);
             CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
         }
-        if(id==R.id.nav_onedrive){
+        else if(id==R.id.nav_onedrive){
             Uri uri = Uri.parse(ONEDRIVE);
             CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
         }
-        if(id==R.id.nav_tasks){
+        else if(id==R.id.nav_tasks){
             Uri uri = Uri.parse(USERDETAILS);
             CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
         }
-        if(id==R.id.nav_files){
+        else  if(id==R.id.nav_files){
             Uri uri = Uri.parse(ACCOUNT);
             CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
         }
