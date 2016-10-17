@@ -18,11 +18,10 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.Intent;
 
-import CustomTabs.WebviewFallback;
-
-
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String EXTRA_URL = "extra.url";
 
     //setting up the Imagebuttons for navigation.
     private ImageButton btnAgenda;
@@ -105,6 +104,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //this adds to the menu android default share.
         intent.addDefaultShareMenuItem();
         intentBlue.addDefaultShareMenuItem();
+       // prepareActionButton(intent);
+     //   prepareActionButton(intentBlue);
 
         btnAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +201,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
+        final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession()).setShowTitle(true);
 
         //setting the toolbar color
         intent.setToolbarColor(Color.RED);
@@ -218,6 +219,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
 
         //this adds to the menu android default share.
         intent.addDefaultShareMenuItem();
+        //prepareActionButton(intent);
+
 
         if(id== R.id.nav_videos){
             Uri uri  = Uri.parse(VIDEO);
@@ -245,4 +248,15 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
+
+    /* private void prepareActionButton(CustomTabsIntent.Builder intent) {
+        // An example intent that sends an email.
+        Intent actionIntent = new Intent(Intent.ACTION_SEND);
+        actionIntent.setType("*/
+       /* actionIntent.putExtra(Intent.EXTRA_EMAIL, "example@example.com");
+        actionIntent.putExtra(Intent.EXTRA_SUBJECT, "Tafe IT Studies Application");
+        PendingIntent pi = PendingIntent.getActivity(this, 0, actionIntent, 0);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_ic_action_email);
+        intent.setActionButton(icon, "send email", pi, true);*/
+    }
+

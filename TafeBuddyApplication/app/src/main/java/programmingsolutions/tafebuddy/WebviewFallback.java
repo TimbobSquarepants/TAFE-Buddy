@@ -1,4 +1,4 @@
-package CustomTabs;
+package programmingsolutions.tafebuddy;
 
 /**
  * Created by timot on 10/6/2016.

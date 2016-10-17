@@ -1,6 +1,10 @@
 package programmingsolutions.tafebuddy;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsCallback;
@@ -146,25 +150,12 @@ public class CustomTabActivityHelper implements ServiceConnectionCallback{
         campusBundle.putString("UserDetails",USERDETAILS);
         campusBundle.putString("Email",EMAIL);
 
-
-
-
-
-
         customTabsSession.mayLaunchUrl(null,campusBundle,null);
 
-        /*Uri courseUrl = Uri.parse(COURSE_SCHEDULE);
-        Uri CounsellingUrl = Uri.parse(COUNSELLING_BOOKING);
-        Uri faqUrl  = Uri.parse(COUNSELLING_BOOKING);
-        Uri CalenderUrl  = Uri.parse(COUNSELLING_BOOKING);
-        Uri VideoUrl  = Uri.parse(COUNSELLING_BOOKING);
-        customTabsSession.mayLaunchUrl(CounsellingUrl,null,null);
-        customTabsSession.mayLaunchUrl(faqUrl,null,null);
-        customTabsSession.mayLaunchUrl(CalenderUrl,null,null);
-        customTabsSession.mayLaunchUrl(VideoUrl,null,null);
-        customTabsSession.mayLaunchUrl(courseUrl,null,null);*/
 
     }
+
+
 
     @Override
     public void onServiceDisconnected() {

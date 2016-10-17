@@ -38,8 +38,9 @@ public class WebviewActivity extends AppCompatActivity {
 
         //setting the title of the page url for now
         setTitle(url);
+        getSupportActionBar();
         //setting the actionbar to show home button arrow
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         webView.loadUrl(url);
 
 
