@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/ic_action_action_book"
+            android:title="Course information"></item>
+        <item
+            android:id="@+id/nav_videos"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Videos" />
+        <item
+            android:id="@+id/nav_onenote"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="One Note" />
+        <item
+            android:id="@+id/nav_onedrive"
+            android:icon="@drawable/ic_cast_dark"
+            android:title="OneDrive" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tasks" />
+        <item
+            android:id="@+id/nav_files"
+            android:icon="@drawable/ic_action_action_assignment"
+            android:title="Files" />
+    </group>
+
+    <item android:title="Tools">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>
