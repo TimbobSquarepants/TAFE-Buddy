@@ -59,6 +59,8 @@ public class CampusDetailActivity extends AppCompatActivity  {
         }
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -75,5 +77,22 @@ public class CampusDetailActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onStart(){
+        super.onStart();
+    }
 
+    public void onDestroy(){
+        super.onDestroy();
+    }
+    public void onPause(){
+        super.onPause();
+
+    }
+    public void onResume(){
+        super.onResume();
+
+    }
+    public void onStop(){
+        super.onStop();
+    }
 }

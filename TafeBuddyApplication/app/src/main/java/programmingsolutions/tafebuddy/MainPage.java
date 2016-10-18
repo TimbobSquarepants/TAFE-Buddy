@@ -1,5 +1,6 @@
 package programmingsolutions.tafebuddy;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.Intent;
@@ -30,21 +32,20 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     private ImageButton btnCalendar;
     private ImageButton btnVideos;
     private ImageButton btnFAQPage;
+
     //setting up the custom tab helper class
     private CustomTabActivityHelper customTabActivityHelper;
+
     //Urls
     final String COURSE_SCHEDULE = "https://my.tafesa.edu.au/PROD/bwskfshd.P_CrseSchd";
     final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/index/about";
     final String FAQ = "https://www.tafensw.edu.au/about-tafensw/enterprise-bargaining/faq";
-    final String CALENDER = "https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&ll-cc=1033&modurl=1&path=/calendar/view/Month";
     final String VIDEO = "https://tafesaedu.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=h";
     final String ONENOTE = "https://www.onenote.com/notebooks?session=f3dc3e95-ea68-4957-b69f-b028f7593d2e&auth=2";
     final String ONEDRIVE= "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
     final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
     final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
     final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
-    final String ACCOUNT_MAIN_PAGE = "https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_StuMainMnu___UID0&pageReferrerId=&pageDepth=2&options=false";
-    final String FILES= "http://netstorage.tafesa.edu.au/SitePages/Home.aspx";
     final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
 
 
@@ -52,6 +53,10 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_layout);
+
+        //this will lock the screen to portrait view and display it in fullscreen mode.f
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //setting up the toolbar layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toobar);
@@ -72,19 +77,24 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         customTabActivityHelper.setConnectionCallback(this);
         customTabActivityHelper.getSession();
 
+    }
 
-        //assigning the buttons
-        btnAgenda= (ImageButton) findViewById(R.id.btnAgenda);
-        btnMap = (ImageButton) findViewById(R.id.btnMap);
-        btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
-        btnCalendar = (ImageButton) findViewById(R.id.btnAccount);
-        btnVideos = (ImageButton) findViewById(R.id.btnEmail);
-        btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
+    //housekeeping freeing up space or binding to the service.
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        customTabActivityHelper.setConnectionCallback(null);
+    }
+    //bimds the custom tab to this activity
+    @Override
+    protected void onStart() {
+        super.onStart();
+        customTabActivityHelper.bindCustomTabsService(this);
 
         //creating a custom tab and making customizing the animations and toolbar.
         final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
         final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-         //setting the toolbar color also allowing the tab to show the title of the wabpage.
+        //setting the toolbar color also allowing the tab to show the title of the wabpage.
         intent.setToolbarColor(Color.RED).setShowTitle(true);
         intentBlue.setToolbarColor(Color.BLUE).setShowTitle(true);
 
@@ -106,8 +116,16 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //this adds to the menu android default share.
         intent.addDefaultShareMenuItem();
         intentBlue.addDefaultShareMenuItem();
-       // prepareActionButton(intent);
-     //   prepareActionButton(intentBlue);
+        // prepareActionButton(intent);
+        //   prepareActionButton(intentBlue);
+
+        //assigning the buttons
+        btnAgenda= (ImageButton) findViewById(R.id.btnAgenda);
+        btnMap = (ImageButton) findViewById(R.id.btnMap);
+        btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
+        btnCalendar = (ImageButton) findViewById(R.id.btnAccount);
+        btnVideos = (ImageButton) findViewById(R.id.btnEmail);
+        btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
 
         btnAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +135,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 //parseing the string into a uri
                 Uri uri  = Uri.parse(COURSE_SCHEDULE);
                 //sending the information to the helper to process
-                 CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
             }
         });
@@ -131,7 +149,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             }
         });
 
-         btnFAQPage.setOnClickListener(new View.OnClickListener() {
+        btnFAQPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "FAQPage Clicked", Toast.LENGTH_SHORT).show();
@@ -163,25 +181,11 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Map Clicked", Toast.LENGTH_SHORT).show();
-               Intent mapIntent = new Intent(MainPage.this, CampusListActivity.class);
+                Intent mapIntent = new Intent(MainPage.this, CampusListActivity.class);
                 startActivity(mapIntent);
             }
         });
 
-
-    }
-
-    //housekeeping freeing up space or binding to the service.
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        customTabActivityHelper.setConnectionCallback(null);
-    }
-    //bimds the custom tab to this activity
-    @Override
-    protected void onStart() {
-        super.onStart();
-        customTabActivityHelper.bindCustomTabsService(this);
 
     }
     @Override

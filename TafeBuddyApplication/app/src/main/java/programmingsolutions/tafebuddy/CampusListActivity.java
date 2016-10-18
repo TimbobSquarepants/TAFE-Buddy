@@ -164,4 +164,22 @@ public class CampusListActivity extends AppCompatActivity {
             }
         }
     }
+    public void onStart(){
+        super.onStart();
+    }
+    public void onStop(){
+        super.onStop();
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+    }
+    public void onPause(){
+        super.onPause();
+
+    }
+    public void onResume(){
+        super.onResume();
+
+    }
 }
