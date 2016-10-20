@@ -20,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.content.Intent;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,23 +30,32 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     //setting up the custom tab helper class
     private CustomTabActivityHelper customTabActivityHelper;
 
+    //this is for Firebase analysiation
+    private FirebaseAnalytics mFirebaseAnalytics;
+
+
     //Urls
-    final String COURSE_SCHEDULE = "https://my.tafesa.edu.au/PROD/bwskfshd.P_CrseSchd";
-    final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/index/about";
-    final String FAQ = "https://www.tafensw.edu.au/about-tafensw/enterprise-bargaining/faq";
-    final String VIDEO = "https://tafesaedu.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=h";
-    final String ONENOTE = "https://www.onenote.com/notebooks?session=f3dc3e95-ea68-4957-b69f-b028f7593d2e&auth=2";
-    final String ONEDRIVE= "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
-    final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
-    final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
-    final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
-    final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
+    static final String COURSE_SCHEDULE = "https://my.tafesa.edu.au/PROD/bwskfshd.P_CrseSchd";
+    static final String COUNSELLING_BOOKING = "http://itstudies.simplybook.me/index/about";
+    static final String FAQ = "https://www.tafensw.edu.au/about-tafensw/enterprise-bargaining/faq";
+    static final String VIDEO = "https://tafesaedu.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=h";
+    static final String ONENOTE = "https://www.onenote.com/notebooks?session=f3dc3e95-ea68-4957-b69f-b028f7593d2e&auth=2";
+    static final String ONEDRIVE= "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
+    static final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
+    static final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
+    static final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
+    static final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_layout);
+
+        // Obtain the FirebaseAnalytics instance.
+        //this will want access to the Wake Lock permission no way to get arnound it
+        //will have to see if battery drain is a problem with it!!
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         //this will lock the screen to portrait view and display it in fullscreen mode.f
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -68,6 +79,14 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //lets the helper know that we want this class to be used.
         customTabActivityHelper.setConnectionCallback(this);
         customTabActivityHelper.getSession();
+
+
+
+
+    }
+
+
+    public void  logEvent (String name, Bundle params){
 
     }
 
@@ -129,6 +148,11 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 //sending the information to the helper to process
                 CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
+                //testing how firebase analytics works have to wait 24 hours to view it on
+                // the console.
+                Bundle analytics = new Bundle();
+                analytics.putString(FirebaseAnalytics.Param.ITEM_NAME, "AgendaCustomTab");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, analytics);
             }
         });
         btnBookCounselling.setOnClickListener(new View.OnClickListener() {

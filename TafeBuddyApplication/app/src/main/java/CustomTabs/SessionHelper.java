@@ -1,4 +1,4 @@
-package programmingsolutions.tafebuddy;
+package CustomTabs;
 
 /**
  * Created by timot on 10/12/2016.
@@ -27,7 +27,7 @@ public class SessionHelper {
      * Sets the current session to the given one.
      * @param session The current session.
      */
-    static void setCurrentSession(CustomTabsSession session) {
+   public static void setCurrentSession(CustomTabsSession session) {
         sCurrentSession = new WeakReference<>(session);
     }
 }

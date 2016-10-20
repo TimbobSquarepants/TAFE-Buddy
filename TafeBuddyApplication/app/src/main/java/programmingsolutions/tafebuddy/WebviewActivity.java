@@ -12,7 +12,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-
+import programmingsolutions.tafebuddy.R;
 
 
 public class WebviewActivity extends AppCompatActivity {
