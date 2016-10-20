@@ -119,8 +119,6 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     public void onStart(){
         super.onStart();
 
-
-
     }
 
     //this is where the map is created and where we are specifying what map to load.
@@ -271,9 +269,19 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
 
     }
 
+    public void onResume(){
+        super.onResume();
+
+    }
+
+    public void onPause(){
+        super.onPause();
+        mMap = null;
+    }
+
     public void onStop(){
         super.onStop();
-
+        mMap = null;
     }
 
     public void onDestroy(){
