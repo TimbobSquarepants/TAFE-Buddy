@@ -32,18 +32,20 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
-
     <ImageButton
         app:srcCompat="@android:color/transparent"
         android:id="@+id/btnAgenda"
-        android:background="@drawable/ic_action_action_event"
-        android:elevation="0dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_background"
+        android:stateListAnimator="@anim/raise"
+        android:src="@drawable/ic_book"
+        android:scaleType="fitCenter"
+        android:elevation="30dp"
+        android:gravity="center"
         android:layout_marginBottom="174dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/btnMap" />
+        android:layout_marginStart="5dp" />
 
     <ImageButton
         android:id="@+id/btnMap"
@@ -54,15 +56,32 @@
         android:layout_alignTop="@+id/btnBookCounselling"
         android:layout_toStartOf="@+id/btnBookCounselling" />
 
+
     <ImageButton
         android:id="@+id/btnBookCounselling"
-        android:background="@drawable/ic_action_ic_action_clock"
-        android:layout_row="1"
-        android:layout_column="2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_background"
+        android:stateListAnimator="@anim/raise"
+        android:src="@drawable/ic_alarm_add"
+        android:scaleType="fitCenter"
+        android:elevation="4dp"
+        android:gravity="center"
         android:layout_alignTop="@+id/btnEmail"
-        android:layout_alignStart="@+id/btnAccount" />
+        android:layout_alignStart="@+id/btnAccount"/>
+    <TextView
+        android:text="Counselling Session"
+        android:id="@+id/textView5"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:lines="2"
+        tools:text="Counselling\nSession"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/btnBookCounselling"
+        android:layout_toEndOf="@+id/btnMap" />
 
     <ImageButton
 
@@ -76,7 +95,7 @@
 
     <ImageButton
         android:id="@+id/btnEmail"
-        android:background="@drawable/ic_action_ic_action_email"
+        android:background="@drawable/ic_email"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="33dp"
@@ -85,7 +104,7 @@
 
     <ImageButton
         android:id="@+id/btnFAQPage"
-        android:background="@drawable/ic_action_notification_sms_failed"
+        android:background="@drawable/ic_faq"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginEnd="58dp"
@@ -98,7 +117,8 @@
         android:text="My Account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
         android:layout_below="@+id/btnAccount"
         android:layout_alignStart="@+id/btnAccount"
         android:id="@+id/textView4" />
@@ -136,19 +156,7 @@
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignEnd="@+id/btnAgenda" />
 
-    <TextView
-        android:text="Counselling Session"
-        android:id="@+id/textView5"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        android:maxLines="2"
-        android:lines="2"
-        tools:text="Counselling\nSession"
-        android:layout_height="wrap_content"
-        android:layout_width="80dp"
-        android:layout_below="@+id/btnBookCounselling"
-        android:layout_toEndOf="@+id/btnMap" />
+
 
     <TextView
         android:text="Campus Map"

@@ -93,29 +93,21 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
 
         //creating a custom tab and making customizing the animations and toolbar.
         final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-        final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
         //setting the toolbar color also allowing the tab to show the title of the wabpage.
-        intent.setToolbarColor(Color.RED).setShowTitle(true);
-        intentBlue.setToolbarColor(Color.BLUE).setShowTitle(true);
+        intent.setToolbarColor(Color.parseColor("#d32f2f")).setShowTitle(true);
 
         //this will change the custom animations for custom tab using animatinos resource files.
         intent.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
         intent.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
                 android.R.anim.slide_out_right);
-        intentBlue.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
-        intentBlue.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right);
 
         //setting the home button in the custom tab
         intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
-        intentBlue.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
         //this will hide the URL bar when a user scrolls down the page.
         intent.enableUrlBarHiding();
-        intentBlue.enableUrlBarHiding();
 
         //this adds to the menu android default share.
         intent.addDefaultShareMenuItem();
-        intentBlue.addDefaultShareMenuItem();
         // prepareActionButton(intent);
         //   prepareActionButton(intentBlue);
 
@@ -154,7 +146,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "FAQPage Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri  = Uri.parse(FAQ);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());;
+                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());;
             }
         });
 
@@ -172,7 +164,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Email Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri=Uri.parse(EMAIL);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());
+                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
 
             }
         });
