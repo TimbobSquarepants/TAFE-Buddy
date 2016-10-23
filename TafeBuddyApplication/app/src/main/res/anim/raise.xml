@@ -4,14 +4,14 @@
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="translationZ"
-                android:valueTo="@dimen/touch_raise"
+                android:valueTo="0dp"
                 android:valueType="floatType" />
         </item>
         <item>
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="translationZ"
-                android:valueTo="0dp"
+                android:valueTo="5dp"
                 android:valueType="floatType" />
         </item>
 </set>

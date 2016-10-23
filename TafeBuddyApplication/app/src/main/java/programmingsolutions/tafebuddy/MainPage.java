@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -26,12 +27,12 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     public static final String EXTRA_URL = "extra.url";
 
     //setting up the Imagebuttons for navigation.
-    private ImageButton btnAgenda;
-    private ImageButton btnMap;
-    private ImageButton btnBookCounselling;
-    private ImageButton btnCalendar;
-    private ImageButton btnVideos;
-    private ImageButton btnFAQPage;
+    private LinearLayout btnAgenda;
+    private LinearLayout btnMap;
+    private LinearLayout btnBookCounselling;
+    private LinearLayout btnCalendar;
+    private LinearLayout btnVideos;
+    private LinearLayout btnFAQPage;
 
     //setting up the custom tab helper class
     private CustomTabActivityHelper customTabActivityHelper;
@@ -112,12 +113,12 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //   prepareActionButton(intentBlue);
 
         //assigning the buttons
-        btnAgenda= (ImageButton) findViewById(R.id.btnAgenda);
-        btnMap = (ImageButton) findViewById(R.id.btnMap);
-        btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
-        btnCalendar = (ImageButton) findViewById(R.id.btnAccount);
-        btnVideos = (ImageButton) findViewById(R.id.btnEmail);
-        btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
+        btnAgenda= (LinearLayout) findViewById(R.id.btnAgenda);
+        btnMap = (LinearLayout) findViewById(R.id.btnCampuses);
+        btnBookCounselling = (LinearLayout) findViewById(R.id.btnBookCounselling);
+        btnCalendar = (LinearLayout) findViewById(R.id.btnMyAccount);
+        btnVideos = (LinearLayout) findViewById(R.id.btnEmail);
+        btnFAQPage = (LinearLayout) findViewById(R.id.btnFAQ);
 
         btnAgenda.setOnClickListener(new View.OnClickListener() {
             @Override

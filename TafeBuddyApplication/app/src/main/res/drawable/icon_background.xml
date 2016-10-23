@@ -4,11 +4,9 @@
     android:shape="rectangle">
 
     <solid
-        android:color="#88666666"/>
+        android:color="#88444444"/>
 
     <size
         android:width="120dp"
         android:height="70dp"/>
-    <padding
-        android:bottom="15dp"/>
 </shape>

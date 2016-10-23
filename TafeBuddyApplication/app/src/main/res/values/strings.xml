@@ -11,4 +11,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- Buttons -->
+    <string name="Agenda">Agenda</string>
+    <string name="AgendaDesc">Agenda Button</string>
 </resources>
