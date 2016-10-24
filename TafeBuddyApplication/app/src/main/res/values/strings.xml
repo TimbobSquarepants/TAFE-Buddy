@@ -14,4 +14,19 @@
     <!-- Buttons -->
     <string name="Agenda">Agenda</string>
     <string name="AgendaDesc">Agenda Button</string>
+
+    <string name="MyAccount">My Account</string>
+    <string name="MyAccountDesc">My Account Button</string>
+
+    <string name="FAQ">FAQ</string>
+    <string name="FAQDesc">FAQ Button</string>
+
+    <string name="Campuses">Campuses</string>
+    <string name="CampusesDesc">Campuses Maps Button</string>
+
+    <string name="CounsellingSession">Counselling Session</string>
+    <string name="CounsellingSessionDesc">Counselling Session Button</string>
+
+    <string name="Email">Email</string>
+    <string name="EmailDesc">Email Button</string>
 </resources>
