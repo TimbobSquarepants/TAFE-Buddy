@@ -1,30 +1,43 @@
 package programmingsolutions.tafebuddy;
 
+
 import android.content.pm.ActivityInfo;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+
 import android.widget.ImageButton;
+
 import android.widget.Toast;
 import android.content.Intent;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 
+
+
 public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
 
+    //creating the recycler view to handle the rss feed
+    RecyclerView recyclerView ;
 
 
     //setting up the custom tab helper class
@@ -40,11 +53,12 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     static final String FAQ = "https://www.tafensw.edu.au/about-tafensw/enterprise-bargaining/faq";
     static final String VIDEO = "https://tafesaedu.sharepoint.com/portals/hub/_layouts/15/PointPublishing.aspx?app=video&p=h";
     static final String ONENOTE = "https://www.onenote.com/notebooks?session=f3dc3e95-ea68-4957-b69f-b028f7593d2e&auth=2";
-    static final String ONEDRIVE= "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
-    static final String ACCOUNT= "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
-    static final String USERDETAILS="https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
-    static final String EMAIL="https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
-    static final String COURSE_INFORMATION= "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
+    static final String ONEDRIVE = "https://tafesaedu-my.sharepoint.com/personal/timothy_finn_student_tafesa_edu_au/Documents/Forms/All.aspx";
+    static final String ACCOUNT = "https://my.tafesa.edu.au/PROD/bwsksphs.P_ViewStatement";
+    static final String USERDETAILS = "https://my.tafesa.edu.au/PROD/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu#pageName=bmenu--P_GenMnu___UID1&pageReferrerId=&pageDepth=2&options=false";
+    static final String EMAIL = "https://outlook.office.com/owa/?realm=student.tafesa.edu.au&exsvurl=1&delegatedOrg=tafesaedu.onmicrosoft.com&ll-cc=1033&modurl=0";
+    static final String COURSE_INFORMATION = "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
+
 
 
     @Override
@@ -68,25 +82,31 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //creating a navigation drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //creating the action bar
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        customTabActivityHelper= new CustomTabActivityHelper();
+        customTabActivityHelper = new CustomTabActivityHelper();
         //lets the helper know that we want this class to be used.
         customTabActivityHelper.setConnectionCallback(this);
         customTabActivityHelper.getSession();
 
-
-
+        //link the recycler view
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        //initializing the rss feed
+        ReadRSS readRSS = new ReadRSS(this, recyclerView);
+        // Start download RSS task
+        readRSS.execute();
+        // Debug the thread name
+        Log.d("RSS", Thread.currentThread().getName());
 
     }
 
 
-    public void  logEvent (String name, Bundle params){
+    public void logEvent(String name, Bundle params) {
 
     }
 
@@ -96,6 +116,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         super.onDestroy();
         customTabActivityHelper.setConnectionCallback(null);
     }
+
     //bimds the custom tab to this activity
     @Override
     protected void onStart() {
@@ -118,8 +139,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 android.R.anim.slide_out_right);
 
         //setting the home button in the custom tab
-        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
-        intentBlue.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
+        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
+        intentBlue.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
         //this will hide the URL bar when a user scrolls down the page.
         intent.enableUrlBarHiding();
         intentBlue.enableUrlBarHiding();
@@ -144,9 +165,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 //debugging
                 Toast.makeText(MainPage.this, "Agenda Clicked", Toast.LENGTH_SHORT).show();
                 //parseing the string into a uri
-                Uri uri  = Uri.parse(COURSE_SCHEDULE);
+                Uri uri = Uri.parse(COURSE_SCHEDULE);
                 //sending the information to the helper to process
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
 
                 //testing how firebase analytics works have to wait 24 hours to view it on
                 // the console.
@@ -159,8 +180,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "BookCounselling Clicked", Toast.LENGTH_SHORT).show();
-                Uri uri  = Uri.parse(COUNSELLING_BOOKING);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+                Uri uri = Uri.parse(COUNSELLING_BOOKING);
+                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
 
             }
         });
@@ -169,8 +190,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "FAQPage Clicked", Toast.LENGTH_SHORT).show();
-                Uri uri  = Uri.parse(FAQ);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());
+                Uri uri = Uri.parse(FAQ);
+                CustomTabActivityHelper.openCustomTab(MainPage.this, intentBlue.build(), uri, new WebviewFallback());
             }
         });
 
@@ -178,8 +199,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Account Clicked", Toast.LENGTH_SHORT).show();
-                Uri uri  = Uri.parse(ACCOUNT);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+                Uri uri = Uri.parse(ACCOUNT);
+                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
             }
         });
 
@@ -187,8 +208,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Email Clicked", Toast.LENGTH_SHORT).show();
-                Uri uri=Uri.parse(EMAIL);
-                CustomTabActivityHelper.openCustomTab(MainPage.this,intentBlue.build(),uri,new WebviewFallback());
+                Uri uri = Uri.parse(EMAIL);
+                CustomTabActivityHelper.openCustomTab(MainPage.this, intentBlue.build(), uri, new WebviewFallback());
 
             }
         });
@@ -204,6 +225,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
 
 
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -234,7 +256,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 android.R.anim.slide_out_right);
 
         //setting the home button in the custom tab
-        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(),R.drawable.ic_arrow_back));
+        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
 
         //this will hide the URL bar when a user scrolls down the page.
         intent.enableUrlBarHiding();
@@ -243,31 +265,25 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         intent.addDefaultShareMenuItem();
         //prepareActionButton(intent);
 
-        if(id == R.id.nav_courses){
+        if (id == R.id.nav_courses) {
             Uri uri = Uri.parse(COURSE_INFORMATION);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
 
-        }
-
-        else if(id== R.id.nav_videos){
-            Uri uri  = Uri.parse(VIDEO);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
-        }
-        else if(id==R.id.nav_onenote){
+        } else if (id == R.id.nav_videos) {
+            Uri uri = Uri.parse(VIDEO);
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+        } else if (id == R.id.nav_onenote) {
             Uri uri = Uri.parse(ONENOTE);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
-        }
-        else if(id==R.id.nav_onedrive){
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+        } else if (id == R.id.nav_onedrive) {
             Uri uri = Uri.parse(ONEDRIVE);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
-        }
-        else if(id==R.id.nav_tasks){
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+        } else if (id == R.id.nav_tasks) {
             Uri uri = Uri.parse(USERDETAILS);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
-        }
-        else  if(id==R.id.nav_files){
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+        } else if (id == R.id.nav_files) {
             Uri uri = Uri.parse(ACCOUNT);
-            CustomTabActivityHelper.openCustomTab(MainPage.this,intent.build(),uri,new WebviewFallback());
+            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
         }
 
 
@@ -285,5 +301,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         PendingIntent pi = PendingIntent.getActivity(this, 0, actionIntent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_ic_action_email);
         intent.setActionButton(icon, "send email", pi, true);*/
-    }
+
+
+
+}
 

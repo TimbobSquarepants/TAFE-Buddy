@@ -31,8 +31,6 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
-
     <ImageButton
         app:srcCompat="@android:color/transparent"
         android:id="@+id/btnAgenda"
@@ -158,6 +156,18 @@
         android:layout_below="@+id/btnMap"
         android:layout_toStartOf="@+id/textView5"
         android:layout_marginEnd="23dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="71dp"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_width="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_height="150dp">
+    </android.support.v7.widget.RecyclerView>
+
     />
 
 
