@@ -15,10 +15,10 @@ import android.widget.TextView;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import CampusMapClasses.CampusDetailFragment;
+import campus_map_classes.CampusDetailFragment;
 
 
-import CampusMapClasses.Campus.CampusContent;
+import campus_map_classes.Campus.CampusContent;
 
 import java.util.List;
 

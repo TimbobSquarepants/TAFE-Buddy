@@ -1,4 +1,4 @@
-package CampusMapClasses.Campus;
+package campus_map_classes.Campus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

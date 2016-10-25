@@ -1,4 +1,4 @@
-package programmingsolutions.tafebuddy;
+package firebase_classes;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +11,9 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import programmingsolutions.tafebuddy.MainPage;
+import programmingsolutions.tafebuddy.R;
 
 import static com.google.android.gms.wearable.DataMap.TAG;
 

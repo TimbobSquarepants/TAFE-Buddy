@@ -13,9 +13,9 @@ import android.util.Log;
 
 import java.util.List;
 
-import CustomTabs.CustomTabsHelper;
-import CustomTabs.ServiceConnectionCallback;
-import CustomTabs.SessionHelper;
+import custom_tabs.CustomTabsHelper;
+import custom_tabs.ServiceConnectionCallback;
+import custom_tabs.SessionHelper;
 
 /**
  * This is a helper class to manage the connection to the Custom Tabs Service.

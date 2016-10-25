@@ -20,7 +20,7 @@ import android.support.customtabs.CustomTabsServiceConnection;
 
 import java.lang.ref.WeakReference;
 
-import CustomTabs.ServiceConnectionCallback;
+import custom_tabs.ServiceConnectionCallback;
 
 /**
  * Implementation for the CustomTabsServiceConnection that avoids leaking the

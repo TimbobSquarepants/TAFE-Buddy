@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -61,24 +60,24 @@
         <activity
             android:name=".WebviewActivity"
             android:label="@string/title_activity_webview"
-            android:theme="@style/AppTheme.AppTheme"
-            android:parentActivityName=".MainPage" >
+            android:parentActivityName=".MainPage"
+            android:theme="@style/AppTheme.AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainPage" />
         </activity>
 
-        <service android:name=".FirebaseInstanceID">
+        <service android:name="firebase_classes.FirebaseInstanceID">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".FireBaseMessage">
+        <service android:name="firebase_classes.FireBaseMessage">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

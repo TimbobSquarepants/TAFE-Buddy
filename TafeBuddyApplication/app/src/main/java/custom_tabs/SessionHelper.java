@@ -1,4 +1,4 @@
-package CustomTabs;
+package custom_tabs;
 
 /**
  * Created by timot on 10/12/2016.

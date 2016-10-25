@@ -1,11 +1,10 @@
-package programmingsolutions.tafebuddy;
+package rss_classes;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,8 +18,6 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import RssClasses.FeedItem;
 
 /**
  * Created by 000993549 on 21/10/2016.
@@ -54,7 +51,10 @@ public class ReadRSS extends AsyncTask<Void,Void,Void> {
         progressDialog.dismiss();
         RssAdapter adapter=new RssAdapter(context,feedItems);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        //recyclerView.addItemDecoration(new VerticalSpace(50));
+
+        //this will set the space for the card views.
+        recyclerView.addItemDecoration(new VerticalSpace(50));
+
         recyclerView.setAdapter(adapter);
 
     }

@@ -1,4 +1,4 @@
-package CustomTabs;
+package custom_tabs;
 
 import android.content.Context;
 import android.content.Intent;

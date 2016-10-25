@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package CustomTabs;
+package custom_tabs;
 
 import android.support.customtabs.CustomTabsClient;
 

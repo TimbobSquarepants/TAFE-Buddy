@@ -1,4 +1,4 @@
-package programmingsolutions.tafebuddy;
+package firebase_classes;
 
 import android.util.Log;
 

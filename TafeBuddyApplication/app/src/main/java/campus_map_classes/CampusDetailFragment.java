@@ -1,4 +1,4 @@
-package CampusMapClasses;
+package campus_map_classes;
 
 
 import android.Manifest;
@@ -36,7 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import programmingsolutions.tafebuddy.CampusDetailActivity;
 import programmingsolutions.tafebuddy.CampusListActivity;
 import programmingsolutions.tafebuddy.R;
-import CampusMapClasses.Campus.CampusContent;
+import campus_map_classes.Campus.CampusContent;
 
 
 /**

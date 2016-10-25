@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import CampusMapClasses.CampusDetailFragment;
+import campus_map_classes.CampusDetailFragment;
 
 /**
  * An activity representing a single Campus detail screen. This

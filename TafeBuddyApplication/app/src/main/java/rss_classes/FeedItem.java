@@ -1,4 +1,4 @@
-package RssClasses;
+package rss_classes;
 
 /**
  * Created by timot on 10/24/2016.
