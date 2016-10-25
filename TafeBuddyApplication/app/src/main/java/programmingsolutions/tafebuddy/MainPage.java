@@ -28,6 +28,7 @@ import android.content.Intent;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import rss_classes.ReadRSS;
 
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
