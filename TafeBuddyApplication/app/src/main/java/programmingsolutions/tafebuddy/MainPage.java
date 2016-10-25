@@ -62,7 +62,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         //setting up the toolbar layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toobar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitle("");
+        toolbar.setSubtitle("");
         //creating a navigation drawer.
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //creating the action bar
