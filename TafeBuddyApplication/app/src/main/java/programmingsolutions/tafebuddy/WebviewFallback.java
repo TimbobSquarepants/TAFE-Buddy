@@ -10,6 +10,7 @@ import android.net.Uri;
 
 
 import programmingsolutions.tafebuddy.CustomTabActivityHelper.CustomTabFallBack;
+import programmingsolutions.tafebuddy.WebviewActivity;
 
 //this will open a webview when custom tabs is not availible
 
