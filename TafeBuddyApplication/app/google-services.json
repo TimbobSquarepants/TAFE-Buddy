@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "836016954361",
+    "firebase_url": "https://tafebuddyapplication.firebaseio.com",
+    "project_id": "tafebuddyapplication",
+    "storage_bucket": "tafebuddyapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836016954361:android:d1878ecb5c57e2a3",
+        "android_client_info": {
+          "package_name": "programmingsolutions.tafebuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836016954361-2hqbtifu0clir6novlkp7npbo1s3hj43.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "programmingsolutions.tafebuddy",
+            "certificate_hash": "4BF6D4D03B36E1A6A42E17F3C0EC47DBE6533AF8"
+          }
+        },
+        {
+          "client_id": "836016954361-rv0109hdi5brhl6hc5rg13csc7nq1fon.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_3yWgH2kd6y-R_MOsXbWsYBXNHOr1OS0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836016954361-rv0109hdi5brhl6hc5rg13csc7nq1fon.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
