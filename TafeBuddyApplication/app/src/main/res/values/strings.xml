@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tafe Buddy</string>
+    <string name="app_name">TAFE Buddy</string>
     <string name="title_campus_list">Campuses</string>
     <string name="title_campus_detail">Campus Detail</string>
     <string name="title_activity_webview">WebviewActivity</string>
@@ -7,5 +7,26 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- Buttons -->
+    <string name="Agenda">Agenda</string>
+    <string name="AgendaDesc">Agenda Button</string>
+
+    <string name="MyAccount">My Account</string>
+    <string name="MyAccountDesc">My Account Button</string>
+
+    <string name="FAQ">FAQ</string>
+    <string name="FAQDesc">FAQ Button</string>
+
+    <string name="Campuses">Campuses</string>
+    <string name="CampusesDesc">Campuses Maps Button</string>
+
+    <string name="CounsellingSession">Counselling Session</string>
+    <string name="CounsellingSessionDesc">Counselling Session Button</string>
+
+    <string name="Email">Email</string>
+    <string name="EmailDesc">Email Button</string>
 </resources>
