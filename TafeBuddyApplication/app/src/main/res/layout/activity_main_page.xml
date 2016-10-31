@@ -21,7 +21,7 @@
             android:layout_height="69dp"
             android:background="@android:color/transparent"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="TAFE Buddy System"
+            app:title="@string/app_name"
             app:titleMargin="10dp"
             android:textAlignment="viewEnd"
             app:titleTextColor="@color/colorAccent"
@@ -92,7 +92,7 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="My Account"
+        android:text="@string/btn_my_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"
@@ -101,7 +101,7 @@
         android:id="@+id/textView4" />
 
     <TextView
-        android:text="FAQ"
+        android:text="@string/btn_faq"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"
         android:textAlignment="center"
@@ -111,7 +111,7 @@
         android:layout_width="60dp" />
 
     <TextView
-        android:text="Email"
+        android:text="@string/btn_email"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"
@@ -121,7 +121,7 @@
         android:id="@+id/textView7" />
 
     <TextView
-        android:text="Agenda"
+        android:text="@string/btn_timetable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
@@ -134,7 +134,7 @@
         android:layout_alignEnd="@+id/btnAgenda" />
 
     <TextView
-        android:text="Counselling Session"
+        android:text="@string/btn_book_counselling"
         android:id="@+id/textView5"
         android:textColor="@android:color/holo_orange_dark"
         android:textAlignment="center"
@@ -148,7 +148,7 @@
         android:layout_toEndOf="@+id/btnMap" />
 
     <TextView
-        android:text="Campus Map"
+        android:text="@string/btn_campus_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"

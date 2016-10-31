@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+    <string name="app_name">Tafe amis</string>
+    <string name="title_campus_list">Campuses</string>
+    <string name="title_campus_detail">Campus Détail</string>
+    <string name="title_activity_webview">Activité Webview </string>
+
+    <string name="navigation_drawer_open">Ouvrez le tiroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer la navigation tiroir</string>
+    <string name="title_activity_settings"> Paramètres</string>
+
+    <!-- Strings related to Main Page buttons -->
+    <string name="btn_timetable"> Calendrier</string>
+    <string name= "btn_my_account">Mon compte</string>
+    <string name="btn_faq"> FAQ </string>
+    <string name= "btn_campus_map">Carte du campus</string>
+    <string name="btn_book_counselling"> Sessions de counseling</string>
+    <string name="btn_email"> Email</string>
+
+
+    <!-- Strings related to Navigation menu  buttons -->
+
+    <string name="btn_course_information"> Informations sur les cours</string>
+    <string name="btn_videos"> Vidéos</string>
+    <string name="btn_one_note"> Une note</string>
+    <string name="btn_one_drive"> Un lecteur</string>
+    <string name="btn_tasks"> les tâches</string>
+    <string name="btn_files"> Mes dossiers </string>
+    <string name="btn_settings"> Paramètres </string>
+    <string name="lbl_tools"> Outils </string>
+    </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+
+    <string name="app_name">टैफे Buddy</string>
+    <string name="title_campus_list">परिसरों</string>
+    <string name="title_campus_detail">कैम्पस विस्तार</string>
+    <string name="title_activity_webview">वेबदृश्य गतिविधि</string>
+
+    <string name="navigation_drawer_open">ओपन नेविगेशन दराज</string>
+    <string name="navigation_drawer_close">बंद नेविगेशन दराज</string>
+    <string name="title_activity_settings">सेटिंग्स</string>
+
+    <!-- Strings related to Main Page buttons -->
+    <string name="btn_timetable"> समय सारणी</string>
+    <string name= "btn_my_account"> मेरा खाता</string>
+    <string name="btn_faq"> सामान्य प्रश्न</string>
+    <string name= "btn_campus_map"> कैम्पस का नक्शा</string>
+    <string name="btn_book_counselling"> परामर्श सत्र</string>
+    <string name="btn_email"> ईमेल</string>
+
+
+    <!-- Strings related to Navigation menu  buttons -->
+
+    <string name="btn_course_information">पाठ्यक्रम संबंधी जानकारी</string>
+    <string name="btn_videos"> वीडियो</string>
+    <string name="btn_one_note"> एक नोट</string>
+    <string name="btn_one_drive"> एक अभियान</string>
+    <string name="btn_tasks"> कार्य </string>
+    <string name="btn_files"> मेरी फ़ाइलें</string>
+    <string name="btn_settings"> सेटिंग्स </string>
+    <string name="lbl_tools"> उपकरण </string>
+
+
+
+
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <resources>
+        <string name="app_name">TAFE好友</string>
+        <string name="title_campus_list">校园</string>
+        <string name="title_campus_detail">校园详细</string>
+        <string name="title_activity_webview">活动网页视图</string>
+
+        <string name="navigation_drawer_open">打开抽屉式导航栏</string>
+        <string name="navigation_drawer_close">关闭导览</string>
+        <string name="title_activity_settings">设置</string>
+
+        <!-- Strings related to Main Page buttons -->
+        <string name="btn_timetable"> 时间表</string>
+        <string name= "btn_my_account"> 我的帐户</string>
+        <string name="btn_faq"> 常问问题</string>
+        <string name= "btn_campus_map"> 校园地图</string>
+        <string name="btn_book_counselling">会话辅导</string>
+        <string name="btn_email"> 电子邮件</string>
+
+
+        <!-- Strings related to Navigation menu  buttons -->
+
+        <string name="btn_course_information"> 课程信息</string>
+        <string name="btn_videos"> 影片</string>
+        <string name="btn_one_note"> 一注</string>
+        <string name="btn_one_drive">一个驱动器 </string>
+        <string name="btn_tasks"> 任务 </string>
+        <string name="btn_files">我的文件</string>
+        <string name="btn_settings"> 设置 </string>
+        <string name="lbl_tools"> 工具 </string>
+
+
+
+</resources>
