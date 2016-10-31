@@ -5,40 +5,37 @@
         <item
             android:id="@+id/nav_courses"
             android:icon="@drawable/ic_action_action_book"
-            android:title="Course information"></item>
+            android:title="@string/btn_course_information"></item>
         <item
             android:id="@+id/nav_videos"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Videos" />
+            android:title="@string/btn_videos" />
         <item
             android:id="@+id/nav_onenote"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="One Note" />
+            android:title="@string/btn_one_note" />
         <item
             android:id="@+id/nav_onedrive"
             android:icon="@drawable/ic_cast_dark"
-            android:title="OneDrive" />
+            android:title="@string/btn_one_drive" />
         <item
             android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tasks" />
+            android:icon="@drawable/ic_alarm_add"
+            android:title="@string/btn_tasks" />
         <item
             android:id="@+id/nav_files"
             android:icon="@drawable/ic_action_action_assignment"
-            android:title="Files" />
+            android:title="@string/btn_files" />
 
     </group>
 
-    <item android:title="Tools">
+    <item android:title="@string/lbl_tools">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/btn_settings" />
+
         </menu>
     </item>
 

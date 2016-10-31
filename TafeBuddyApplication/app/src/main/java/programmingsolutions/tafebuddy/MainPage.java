@@ -281,6 +281,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         } else if (id == R.id.nav_files) {
             Uri uri = Uri.parse(ACCOUNT);
             CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+        } else if (id == R.id.nav_settings){
+            Intent settingsIntent = new Intent(MainPage.this, SettingsActivity.class);
+            startActivity(settingsIntent);
         }
 
 
