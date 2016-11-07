@@ -79,7 +79,13 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return feedItems.size();
+        try {
+            return feedItems.size();
+        }
+        catch (Exception e){
+            System.out.println("Error in List");
+        }
+        return 0;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -88,11 +94,11 @@ public class RssAdapter extends RecyclerView.Adapter<RssAdapter.MyViewHolder> {
         CardView cardView;
         public MyViewHolder(View itemView) {
             super(itemView);
-            Title= (TextView) itemView.findViewById(R.id.title_text);
-            Description= (TextView) itemView.findViewById(R.id.description_text);
-            Date= (TextView) itemView.findViewById(R.id.date_text);
+            Title= (TextView) itemView.findViewById(R.id.card_title);
+            Description= (TextView) itemView.findViewById(R.id.card_description);
+            Date= (TextView) itemView.findViewById(R.id.card_date);
             //Thumbnail= (ImageView) itemView.findViewById(R.id.thumb_img);
-            cardView= (CardView) itemView.findViewById(R.id.custom_rss_feed);
+            cardView= (CardView) itemView.findViewById(R.id.custom_card_view);
         }
     }
 }

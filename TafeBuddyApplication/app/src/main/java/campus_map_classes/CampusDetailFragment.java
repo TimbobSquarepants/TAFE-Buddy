@@ -5,10 +5,12 @@ import android.Manifest;
 import android.app.Activity;
 
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
 
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
@@ -38,6 +40,8 @@ import programmingsolutions.tafebuddy.CampusListActivity;
 import programmingsolutions.tafebuddy.R;
 import campus_map_classes.Campus.CampusContent;
 
+import static programmingsolutions.tafebuddy.MainPage.KEY_PREF_MAP_PREFRENCE;
+
 
 /**
  * A fragment representing a single Campus detail screen.
@@ -45,7 +49,7 @@ import campus_map_classes.Campus.CampusContent;
  * in two-pane mode (on tablets) or a {@link CampusDetailActivity}
  * on handsets.
  */
-public class CampusDetailFragment extends android.app.Fragment implements OnMapReadyCallback, GoogleMap.OnIndoorStateChangeListener,GoogleMap.OnMarkerClickListener {
+public class CampusDetailFragment extends android.app.Fragment implements OnMapReadyCallback, GoogleMap.OnIndoorStateChangeListener,GoogleMap.OnMarkerClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -132,18 +136,10 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
         //styling the map in retro style.
         mapStyling(mMap);
 
-        //requesting permission for fine location.
-        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        //testing out how prefrences can work in maps.
+        SharedPreferences sharedPrefrences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        requestMapPermission(sharedPrefrences);
 
-            //requesting maps access to Fine Location in the android manifest file
-            ActivityCompat.requestPermissions(this.getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-            return;
-
-
-        }
-        mMap.setMyLocationEnabled(true);
 
 
         mMap.setOnMarkerClickListener(this);
@@ -235,6 +231,29 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
 
     }
 
+
+    //simple method to check users prefrences then see if they can
+    public void requestMapPermission(SharedPreferences sharedPreferences) {
+        boolean mapPreference = sharedPreferences.getBoolean(KEY_PREF_MAP_PREFRENCE, true);
+        //requesting permission for fine location.
+        if (mapPreference == true) {
+
+            if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                //requesting maps access to Fine Location in the android manifest file
+                ActivityCompat.requestPermissions(this.getActivity(),
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                return;
+
+
+            }
+            mMap.setMyLocationEnabled(true);
+
+        }
+
+    }
+
     public void mapStyling(GoogleMap mMap){
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -289,6 +308,11 @@ public class CampusDetailFragment extends android.app.Fragment implements OnMapR
     @Override
     public boolean onMarkerClick(Marker marker) {
         return false;
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
     }
 }
 

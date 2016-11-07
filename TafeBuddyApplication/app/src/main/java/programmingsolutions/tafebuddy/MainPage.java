@@ -1,11 +1,17 @@
 package programmingsolutions.tafebuddy;
 
 
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-
+import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.NavigationView;
@@ -13,25 +19,22 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-
-import android.widget.ImageButton;
-
+import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import custom_tabs.CustomTabsHelper;
 import rss_classes.ReadRSS;
 
 
-public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener {
+public class MainPage extends AppCompatActivity implements View.OnClickListener, CustomTabActivityHelper.ConnectionCallback, NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     //creating the recycler view to handle the rss feed
     RecyclerView recyclerView ;
@@ -57,11 +60,16 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     static final String COURSE_INFORMATION = "https://www.tafensw.edu.au/courses/tafe-nsw-course-search";
 
 
+    //prefrences Strings
+    public static final String KEY_PREF_MAP_PREFRENCE = "mapPreference";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_layout);
+
+        //getting the users prefrences for the application
+        PreferenceManager.setDefaultValues(this, R.xml.activity_settings, false);
 
         // Obtain the FirebaseAnalytics instance.
         //this will want access to the Wake Lock permission no way to get arnound it
@@ -91,14 +99,18 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         customTabActivityHelper.setConnectionCallback(this);
         customTabActivityHelper.getSession();
 
-        //link the recycler view
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        //initializing the rss feed
-        ReadRSS readRSS = new ReadRSS(this, recyclerView);
-        // Start download RSS task
-        readRSS.execute();
-        // Debug the thread name
-        Log.d("RSS", Thread.currentThread().getName());
+        try {
+            //link the recycler view
+            recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+            //initializing the rss feed
+            ReadRSS readRSS = new ReadRSS(this, recyclerView);
+            // Start download RSS task
+            readRSS.execute();
+            // Debug the thread name
+            Log.d("RSS", Thread.currentThread().getName());
+        }catch (Exception e){
+            System.out.println("Error in retireving RSS Feed");
+        }
 
     }
 
@@ -120,51 +132,23 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         super.onStart();
         customTabActivityHelper.bindCustomTabsService(this);
 
-        //creating a custom tab and making customizing the animations and toolbar.
-        final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-        final CustomTabsIntent.Builder intentBlue = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
-        //setting the toolbar color also allowing the tab to show the title of the wabpage.
-        intent.setToolbarColor(Color.RED).setShowTitle(true);
-        intentBlue.setToolbarColor(Color.BLUE).setShowTitle(true);
-
-        //this will change the custom animations for custom tab using animatinos resource files.
-        intent.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
-        intent.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right);
-        intentBlue.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
-        intentBlue.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right);
-
-        //setting the home button in the custom tab
-        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
-        intentBlue.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
-        //this will hide the URL bar when a user scrolls down the page.
-        intent.enableUrlBarHiding();
-        intentBlue.enableUrlBarHiding();
-
-        //this adds to the menu android default share.
-        intent.addDefaultShareMenuItem();
-        intentBlue.addDefaultShareMenuItem();
-        // prepareActionButton(intent);
-        //   prepareActionButton(intentBlue);
-
         //assigning the buttons
-        ImageButton btnAgenda = (ImageButton) findViewById(R.id.btnAgenda);
-        ImageButton btnMap = (ImageButton) findViewById(R.id.btnMap);
-        ImageButton btnBookCounselling = (ImageButton) findViewById(R.id.btnBookCounselling);
-        ImageButton btnCalendar = (ImageButton) findViewById(R.id.btnAccount);
-        ImageButton btnVideos = (ImageButton) findViewById(R.id.btnEmail);
-        ImageButton btnFAQPage = (ImageButton) findViewById(R.id.btnFAQPage);
+        LinearLayout btnAgenda= (LinearLayout) findViewById(R.id.btnAgenda);
+        LinearLayout btnMap = (LinearLayout) findViewById(R.id.btnCampuses);
+        LinearLayout btnBookCounselling = (LinearLayout) findViewById(R.id.btnBookCounselling);
+        LinearLayout btnCalendar = (LinearLayout) findViewById(R.id.btnMyAccount);
+        LinearLayout btnVideos = (LinearLayout) findViewById(R.id.btnEmail);
+        LinearLayout btnFAQPage = (LinearLayout) findViewById(R.id.btnFAQ);
 
         btnAgenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //debugging
                 Toast.makeText(MainPage.this, "Agenda Clicked", Toast.LENGTH_SHORT).show();
+
                 //parseing the string into a uri
                 Uri uri = Uri.parse(COURSE_SCHEDULE);
-                //sending the information to the helper to process
-                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+                openCustomTab(uri);
 
                 //testing how firebase analytics works have to wait 24 hours to view it on
                 // the console.
@@ -178,7 +162,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "BookCounselling Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse(COUNSELLING_BOOKING);
-                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+                openCustomTab(uri);
 
             }
         });
@@ -188,7 +172,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "FAQPage Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse(FAQ);
-                CustomTabActivityHelper.openCustomTab(MainPage.this, intentBlue.build(), uri, new WebviewFallback());
+                openCustomTab(uri);
             }
         });
 
@@ -197,7 +181,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Account Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse(ACCOUNT);
-                CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+                openCustomTab(uri);
             }
         });
 
@@ -206,7 +190,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Email Clicked", Toast.LENGTH_SHORT).show();
                 Uri uri = Uri.parse(EMAIL);
-                CustomTabActivityHelper.openCustomTab(MainPage.this, intentBlue.build(), uri, new WebviewFallback());
+                openCustomTab(uri);
 
             }
         });
@@ -219,7 +203,6 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
                 startActivity(mapIntent);
             }
         });
-
 
     }
 
@@ -242,45 +225,25 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        final CustomTabsIntent.Builder intent = new CustomTabsIntent.Builder(customTabActivityHelper.getSession()).setShowTitle(true);
-
-        //setting the toolbar color
-        intent.setToolbarColor(Color.RED);
-
-        //this will change the custom animations for custom tab using animatinos resource files.
-        intent.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
-        intent.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right);
-
-        //setting the home button in the custom tab
-        intent.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
-
-        //this will hide the URL bar when a user scrolls down the page.
-        intent.enableUrlBarHiding();
-
-        //this adds to the menu android default share.
-        intent.addDefaultShareMenuItem();
-        //prepareActionButton(intent);
 
         if (id == R.id.nav_courses) {
             Uri uri = Uri.parse(COURSE_INFORMATION);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
-
+            openCustomTab(uri);
         } else if (id == R.id.nav_videos) {
             Uri uri = Uri.parse(VIDEO);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+            openCustomTab(uri);
         } else if (id == R.id.nav_onenote) {
             Uri uri = Uri.parse(ONENOTE);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+            openCustomTab(uri);
         } else if (id == R.id.nav_onedrive) {
             Uri uri = Uri.parse(ONEDRIVE);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+            openCustomTab(uri);
         } else if (id == R.id.nav_tasks) {
             Uri uri = Uri.parse(USERDETAILS);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+            openCustomTab(uri);
         } else if (id == R.id.nav_files) {
             Uri uri = Uri.parse(ACCOUNT);
-            CustomTabActivityHelper.openCustomTab(MainPage.this, intent.build(), uri, new WebviewFallback());
+            openCustomTab(uri);
         } else if (id == R.id.nav_settings){
             Intent settingsIntent = new Intent(MainPage.this, SettingsActivity.class);
             startActivity(settingsIntent);
@@ -292,17 +255,65 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener,
         return true;
     }
 
-    /* private void prepareActionButton(CustomTabsIntent.Builder intent) {
+
+    private void openCustomTab(Uri uri){
+
+
+
+        //creating a custom tab and making customizing the animations and toolbar.
+        final CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder(customTabActivityHelper.getSession());
+
+        //setting the toolbar color also allowing the tab to show the title of the wabpage.
+        builder.setToolbarColor(Color.RED).setShowTitle(true);
+
+        //this will change the custom animations for custom tab using animatinos resource files.
+        builder.setStartAnimations(MainPage.this, R.anim.slide_in_right, R.anim.slide_out_left);
+        builder.setExitAnimations(MainPage.this, android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right);
+
+        //setting the home button in the custom tab
+        builder.setCloseButtonIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_arrow_back));
+
+        //this will hide the URL bar when a user scrolls down the page.
+        builder.enableUrlBarHiding();
+
+        //this adds to the menu android default share.
+        builder.addDefaultShareMenuItem();
+
+        //this should add actions to the custom tab pages
+        prepareActionButton(builder);
+
+        CustomTabsHelper.getPackageNameToUse(this);
+        //this will check to see what browser is availible to handle custom tab.
+        CustomTabsIntent customTabsIntent = builder.build();
+        CustomTabsHelper.addKeepAliveExtra(getBaseContext(), customTabsIntent.intent);
+
+        //sending the information to the helper to process
+        CustomTabActivityHelper.openCustomTab(MainPage.this, builder.build(), uri, new WebviewFallback());
+    }
+
+
+
+    private void prepareActionButton(CustomTabsIntent.Builder builder) {
         // An example intent that sends an email.
         Intent actionIntent = new Intent(Intent.ACTION_SEND);
-        actionIntent.setType("*/
-       /* actionIntent.putExtra(Intent.EXTRA_EMAIL, "example@example.com");
-        actionIntent.putExtra(Intent.EXTRA_SUBJECT, "Tafe IT Studies Application");
+        actionIntent.setType("*/*");
+        actionIntent.putExtra(Intent.EXTRA_EMAIL, "example@example.com");
+        actionIntent.putExtra(Intent.EXTRA_SUBJECT, "example");
         PendingIntent pi = PendingIntent.getActivity(this, 0, actionIntent, 0);
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_ic_action_email);
-        intent.setActionButton(icon, "send email", pi, true);*/
+        builder.setActionButton(icon, "send email", pi, true);
+    }
+
+    //this is a listner that checks to see what prefrences have changed dont know if we really need it
+    //tho since we can check it in the methods when we call the prefrences on the oncreate methods.
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        boolean mapPreference = sharedPreferences.getBoolean(KEY_PREF_MAP_PREFRENCE,true);
+    }
+
+    //this method will handle any changes in the prefrences of the user and update accordingly
 
 
-
-}
+    }
 

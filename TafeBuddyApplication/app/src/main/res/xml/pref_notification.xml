@@ -2,6 +2,9 @@
 
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->
+    <PreferenceCategory
+        android:title="@string/pref_notification_settings"
+        android:key="@string/pref_notification_settings"></PreferenceCategory>
     <SwitchPreference
         android:defaultValue="true"
         android:key="notifications_new_message"
