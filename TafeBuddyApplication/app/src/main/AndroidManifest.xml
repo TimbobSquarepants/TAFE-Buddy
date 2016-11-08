@@ -78,9 +78,13 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
-    </application>
+    <activity android:name=".SettingsActivity"
+              android:parentActivityName=".MainPage"  >
+    <intent-filter>
 
+        <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+        <category android:name="android.intent.category.DEFAULT" />
+    </intent-filter>
+</activity>
+</application>
 </manifest>

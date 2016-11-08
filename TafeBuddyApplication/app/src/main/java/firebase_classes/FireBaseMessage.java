@@ -4,8 +4,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -18,6 +20,7 @@ import programmingsolutions.tafebuddy.R;
 import static com.google.android.gms.wearable.DataMap.TAG;
 
 public class FireBaseMessage extends FirebaseMessagingService {
+    public static final String PREF_NOTIFICATION_MESSAGE = "notifications_new_message";
 
     // this class will retireve the message and then format it in a readable form for the user
     @Override
@@ -25,8 +28,16 @@ public class FireBaseMessage extends FirebaseMessagingService {
         //Log data to Log Cat
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
+
         //create notification
-        createNotification(remoteMessage.getNotification().getBody());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        boolean isNotificationsEnabled = sharedPreferences.getBoolean(PREF_NOTIFICATION_MESSAGE, true);
+
+        if (isNotificationsEnabled ) {
+            createNotification(remoteMessage.getNotification().getBody());
+
+        }
     }
 
     private void createNotification(String messageBody) {

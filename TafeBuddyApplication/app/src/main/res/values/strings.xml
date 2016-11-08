@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Tafe Buddy</string>
+    <string name="app_name">" "</string>
     <string name="title_campus_list">Campuses</string>
     <string name="title_campus_detail">Campus Detail</string>
     <string name="title_activity_webview">WebviewActivity</string>
@@ -27,21 +27,23 @@
     <string name="btn_files"> My Files </string>
     <string name="btn_settings"> Settings </string>
     <string name="lbl_tools"> Tools </string>
-
+    <string name="TAFELogo">TAFE Logo</string>
 
 
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
+    <string name="pref_user_settings">User Settings</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
     <string name="pref_description_social_recommendations">Recommendations for people to contact
         based on your message history
     </string>
 
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
+    <string name="set_notifications_summary"> This setting controls wether or not you will recieve notifications from Tafe.</string>
+
+    <string name="pref_title_display_name">Enter your name here</string>
+    <string name="pref_default_display_name">User Tim</string>
 
     <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
     <string-array name="pref_example_list_titles">
@@ -56,7 +58,7 @@
     </string-array>
 
     <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
+    <string name="pref_header_data_sync">Set Data &amp; sync</string>
 
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string-array name="pref_sync_frequency_titles">
@@ -95,12 +97,21 @@
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
-    <string name="pref_title_new_message_notifications">New message notifications</string>
+    <string name="pref_title_new_message_notifications">Recieve Notifications from Tafe</string>
 
-    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_title_ringtone">Set Ringtone</string>
+    <string name="set_notification_ringtone">Set your ringtone for notifications.</string>
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="user_settings">User Settings</string>
+    <string name="pref_map_settings">Map Settings</string>
+    <string name="pref_notification_settings">Notification Settings</string>
 
+    <string name="pref_rss_feed">RSS_Feed_Settings</string>
+    <string name="rss_feed_settings">Control RSS Feed Display</string>
+    <string name="rss_feed_summary">You can control if the RSS feed is displayed on the main page here.</string>
+    <string name="data_summary">Set how often the Tafe Buddy uses data.</string>
+    <string name="pref_title_data_sync">Set Data and Sync options></string>
 
 </resources>

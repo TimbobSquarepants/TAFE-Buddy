@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/user_settings"
+        android:key="@string/user_settings"></PreferenceCategory>
+    <EditTextPreference
+
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_display_name"
+        android:inputType="textCapWords"
+        android:key="user_name"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_display_name"
+    />
+    <PreferenceCategory
+        android:title="@string/pref_map_settings"
+        android:key="@string/pref_map_settings">
+
+    </PreferenceCategory>
+    <SwitchPreference
+        android:key="mapPreference"
+        android:title = "Map Permission"
+        android:summary="Set map Location Permissions"
+        android:defaultValue= "true"/>
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+             when checked/unchecked. -->
+    <PreferenceCategory
+        android:title="@string/pref_notification_settings"
+        android:key="@string/pref_notification_settings">
+
+    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_message"
+        android:title="@string/pref_title_new_message_notifications"
+        android:summary="@string/set_notifications_summary"/>
+
+    <!-- Allows the user to choose a ringtone in the 'notification' category. -->
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <!-- NOTE: RingtonePreference's summary should be set to its value by the activity code. -->
+    <RingtonePreference
+        android:defaultValue="content://settings/system/notification_sound"
+        android:dependency="notifications_new_message"
+        android:key="notifications_new_message_ringtone"
+        android:ringtoneType="notification"
+        android:title="@string/pref_title_ringtone"
+        android:summary="@string/set_notification_ringtone"/>
+
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <SwitchPreference
+        android:defaultValue="true"
+        android:dependency="notifications_new_message"
+        android:key="notifications_new_message_vibrate"
+        android:title="@string/pref_title_vibrate" />
+
+    <PreferenceCategory
+        android:title="@string/pref_rss_feed"
+        android:key="@string/pref_rss_feed">
+
+    </PreferenceCategory>
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/pref_rss_feed"
+        android:title="@string/rss_feed_settings"
+        android:summary="@string/rss_feed_summary">
+
+    </SwitchPreference>
+
+    <PreferenceCategory
+        android:title="@string/pref_header_data_sync"
+        android:key="@string/pref_header_data_sync"
+        >
+
+    </PreferenceCategory>
+
+    <ListPreference
+        android:defaultValue="180"
+        android:summary="@string/data_summary"
+        android:entries="@array/pref_sync_frequency_titles"
+        android:entryValues="@array/pref_sync_frequency_values"
+        android:key="sync_frequency"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_sync_frequency" />
+
+    <!-- This preference simply launches an intent when selected. Use this UI sparingly, per
+         design guidelines. -->
+    <Preference android:title="@string/pref_title_system_sync_settings">
+        <intent android:action="android.settings.SYNC_SETTINGS" />
+    </Preference>
+
+</PreferenceScreen>

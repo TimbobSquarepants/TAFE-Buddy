@@ -13,10 +13,13 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
@@ -120,17 +123,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+
+        //this part of the code handles displaying the settings menu on one page i pass it in as a
+        //fragment as its the only way to do it on newer android devices.
+        setContentView(R.layout.activity_settings_details);
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+
+        SettingsFragment settingsFragment = new SettingsFragment();
+        fragmentTransaction.add(android.R.id.content,settingsFragment, "SETTINGS_FRAGMENT");
+        fragmentTransaction.commit();
+
     }
 
     /**
      * Set up the {@link android.app.ActionBar}, if the API is available.
      */
     private void setupActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toobar);
+        setSupportActionBar(toolbar);
+
     }
 
     /**
@@ -141,9 +155,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         return isXLargeTablet(this);
     }
 
+    //if we wanted to add support for older devices.
     /**
      * {@inheritDoc}
-     */
+
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
@@ -154,6 +169,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * This method stops fragment injection in malicious applications.
      * Make sure to deny any unknown fragments here.
      */
+
+
+
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
@@ -170,6 +188,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
+
+
             addPreferencesFromResource(R.xml.pref_general);
             setHasOptionsMenu(true);
 
@@ -251,4 +272,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return super.onOptionsItemSelected(item);
         }
     }
+
+    //creating a fragment to store the Settings page for smaller screens
+    public  static class SettingsFragment extends PreferenceFragment{
+
+        @Override
+        public  void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.activity_settings);
+
+
+        }
+
+
+
+
+    }
+
+
 }
