@@ -1,10 +1,14 @@
----
-description: TEst
-coverY: 0
----
+# TafeBuddyApplication
 
-# Page 1
+TafeBuddyApplication is an Android application designed to assist TAFE students by providing various resources and tools to enhance their learning experience. The application includes features such as:
 
-TEST test
+- Course management
+- Study resources
+- Timetable scheduling
+- Notifications and reminders
 
-<img src=".gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+This project aims to streamline the educational process for TAFE students, making it easier to manage their studies and access necessary information.
+
+## Requirements
+
+- Android 5.0 (Lollipop) or higher
